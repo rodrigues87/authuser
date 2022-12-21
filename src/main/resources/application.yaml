@@ -1,0 +1,35 @@
+server:
+  port: ${PORT:0}
+  ## aqui estamos definindo um predicado para a aplicação
+  servlet:
+    context-path: '/events-authuser/'
+
+spring:
+  application:
+    name: events-authuser-service
+  profiles:
+    active: postgress
+  #para mostrar as cores do log no cmd
+  output:
+    ansi:
+      enabled: Always
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auth
+    username: assertuser
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        show_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: 'http://localhost:8761/eureka'
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}:${random.value}
